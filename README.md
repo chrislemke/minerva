@@ -1,4 +1,4 @@
-<img src="./assets/minerva.png" alt="Minerva - AI-Powered Test Generator" width="100%">
+<img src="./assets/minerva.png" alt="Minerva - AI-Powered Test Generator" width="50%">
 
 # Minerva
 **Machina Intellectus Novum Examinis Ratio Verificatio Automata**
