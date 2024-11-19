@@ -1,0 +1,92 @@
+default_language_version:
+  python: python3.12
+
+repos:
+  # Enforce conventional commit messages
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v3.6.0
+    hooks:
+      - id: conventional-pre-commit
+        stages: [commit-msg]
+        args:
+          [
+          "docs",
+          "fix",
+          "maintain",
+          "refactor",
+          "revert",
+          "security",
+          "test",
+          "update",
+          ]
+
+  # Standard pre-commit hooks for code cleanliness
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace          # Removes trailing whitespace
+      - id: end-of-file-fixer            # Ensures files end with a newline
+      - id: check-yaml                   # Checks YAML files for syntax errors
+      - id: check-xml                    # Checks XML files for syntax errors
+      - id: mixed-line-ending            # Fixes mixed line endings
+        args: ["--fix=lf"]
+      - id: check-added-large-files      # Prevents adding large files
+      - id: check-ast                    # Checks Python files for syntax errors
+      - id: check-builtin-literals       # Enforces use of literals over built-ins
+      - id: check-case-conflict          # Detects filename case conflicts
+      - id: check-docstring-first        # Ensures docstrings are the first statement
+      - id: check-merge-conflict         # Detects merge conflict strings
+      - id: check-toml                   # Checks TOML files for syntax errors
+      - id: debug-statements             # Finds debug statements like print
+      - id: fix-byte-order-marker        # Removes byte-order markers
+      - id: forbid-new-submodules        # Forbids adding new submodules
+      - id: forbid-submodules            # Forbids submodules entirely
+      - id: detect-private-key           # Detects private keys
+
+  # Additional regex-based hooks
+  - repo: https://github.com/pre-commit/pygrep-hooks
+    rev: v1.10.0
+    hooks:
+      - id: python-use-type-annotations   # Enforces type annotations
+      - id: python-check-blanket-noqa     # Warns against blanket noqa usage
+      - id: python-check-mock-methods     # Checks deprecated mock methods
+      - id: python-no-log-warn            # Replaces deprecated logger.warn
+      - id: text-unicode-replacement-char # Detects unicode replacement chars
+
+  # Formats docstrings to follow PEP 257
+  - repo: https://github.com/PyCQA/docformatter
+    rev: v1.7.5
+    hooks:
+      - id: docformatter
+        additional_dependencies: [tomli]
+        args: [--in-place, --config, ./pyproject.toml]
+
+  # Sort sections in code files
+  - repo: https://github.com/bwhmather/ssort
+    rev: 0.14.0
+    hooks:
+      - id: ssort
+
+  # The uncompromising code formatter
+  - repo: https://github.com/psf/black
+    rev: 24.10.0
+    hooks:
+      - id: black              # Formats Python code
+        files: \.py$
+      - id: black-jupyter      # Formats Jupyter notebooks
+        files: \.ipynb$
+
+  # Python import sorting utility
+  - repo: https://github.com/pycqa/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        name: isort (python)
+
+  # Static type checker for Python
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.13.0
+    hooks:
+      - id: mypy
+        args:
+          - "--config-file=pyproject.toml"

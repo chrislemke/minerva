@@ -1,0 +1,59 @@
+[tool.black]
+line-length = 88
+target-version = ["py312"]
+include = '\.pyi?$|\.ipynb$'
+verbose = true
+
+[tool.isort]
+profile = "black"
+src_paths = ["src"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+ignore_missing_imports = true
+explicit_package_bases = true
+disable_error_code = ["no-any-return"]
+files = ["src"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+lint.ignore = ["I001", "I002"]
+
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "tab"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+docstring-code-format = false
+
+[tool.pytest.ini_options]
+minversion = "8.3.3"
+testpaths = ["tests"]
+
+python_files = ["test_*.py"]
+
+addopts = [
+    "--verbose",
+    "--capture=no",
+    "--durations=5",
+    "-ra",
+]
+
+timeout = 400
+
+markers = [
+    "unit: marks unit tests",
+    "integration: marks integration tests",
+    "slow: marks tests that take longer than 30 seconds"
+]
+
+[tool.docformatter]
+black = true
+non-strict = false
+close-quotes-on-newline = true
+non-cap = [
+	"docformatter",
+]
